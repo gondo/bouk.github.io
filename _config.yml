@@ -1,0 +1,4 @@
+auto: yes
+permalink: /blog/:title
+redirects: yes
+domain: bouke.be
