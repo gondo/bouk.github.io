@@ -8,10 +8,21 @@
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="canonical" href="http://{{ site.domain }}{{ page.url }}"/>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <div class="container">
-        {{ content }}
+        <header class="clearfix">
+            <h2><a href="/">Bouke van der Bijl</a></h2>
+            <nav class="clearfix">
+                <a href="/blog/">Blog</a>
+                <a href="https://github.com/boukevanderbijl" target="_blank">Github</a>
+                <a href="https://twitter.com/bvdbijl" target="_blank">Twitter</a>
+            </nav>
+        </header>
+        <div class="content">
+            {{ content }}
+        </div>
     </div>
 </body>
 </html>

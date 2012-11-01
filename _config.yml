@@ -1,4 +1,5 @@
 auto: yes
-permalink: /blog/:title
+permalink: /blog/:year/:month/:title.html
 redirects: yes
 domain: bouke.be
+pygments: true
