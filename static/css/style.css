@@ -8,7 +8,7 @@ color:#333;
 height:100%;
 }
 body > .container {
-width:700px;
+width:740px;
 margin:0 auto;
 font-size:16px;
 font-family: 'Open Sans', sans-serif;
@@ -31,12 +31,10 @@ border-left:none;
 body > .container > header a {
 display:block;
 text-decoration:none;
-text-transform:uppercase;
 color:inherit;
 line-height:40px;
 padding:20px 10px 0 10px;
 font-weight:700;
-text-shadow:#BBB 1px 1px 0px;
 }
 body > .container > header > nav > a {
 float:left;
@@ -100,7 +98,12 @@ font-weight:400;
 }
 
 /* syntax highlighting */
-.highlight  { background: #ffffff; font-family: 'Monaco', 'Consolas', monospace; max-width:100%;}
+.highlight  {
+background: #ffffff;
+font-family: 'Monaco', 'Consolas', monospace;
+max-width:100%;
+font-size:16px;
+}
 .highlight span.c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .highlight .k { font-weight: bold } /* Keyword */
