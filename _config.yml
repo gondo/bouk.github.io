@@ -1,4 +1,3 @@
-auto: yes
 permalink: /blog/:title/
 domain: bouke.be
-pygments: true
+highlighter: pygments
