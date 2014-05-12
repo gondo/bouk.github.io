@@ -61,7 +61,7 @@ There are many ways to exploit this, you could link the victim to the page or em
 
 Because this is so easily exploitable you can mass-pwn developers with relatively little work.
 
-## How to secure against this issue
+## How to secure against this vulnerability
 
 Add the following line to your `elasticsearch.yml` to disable dynamic scripting and prevent remote code execution:
 
