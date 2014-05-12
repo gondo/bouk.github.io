@@ -4,7 +4,7 @@ title: Insecure default in Elasticsearch enables remote code execution
 
 ---
 
-Elasticsearch has a flaw in its default configuration which makes it possible for a random webpage to execute arbitrary code on visitors with Elasticsearch installed. If you're running Elasticsearch in development please read [the instructions](#how_to_secure_against_this_issue) on how to secure your machine. Elasticsearch version 1.2 (which is unreleased as of writing) is not vulnerable to remote code execution, but still has some security issues.
+Elasticsearch has a flaw in its default configuration which makes it possible for any webpage to execute arbitrary code on visitors with Elasticsearch installed. If you're running Elasticsearch in development please read [the instructions](#how_to_secure_against_this_issue) on how to secure your machine. Elasticsearch version 1.2 (which is unreleased as of writing) is not vulnerable to remote code execution, but still has some security concerns.
 
 ## The problem(s)
 There are a couple of problems which enable the proof of concept I'm going to present:
