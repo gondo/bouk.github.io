@@ -77,7 +77,7 @@ If you want to be as secure as possible, you should run Elasticsearch inside a v
 
 Disabling scripting will prevent code execution, but that still leaves us with the issue of being able to query and administer the instance without limit. A webpage can easily dump the whole database running on your machine, sensitive data included. This is impossible to fix by the Elasticsearch developers without adding authentication or CSRF protection.
 
-If an attacker can figure out the internal address of your production Elasticsearch instance, you're also open to leaking your production data. If your development machine is connected to a VPN which provides access to the Elasticsearch cluster, an attacker can easily query or [shut down](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster-nodes-shutdown.html) your cluster simply by making you visit a webpage.
+If an attacker can figure out the internal address of your production Elasticsearch instance, you're also open to leaking your production data. If your development machine is connected to a VPN which provides access to your Elasticsearch cluster, an attacker can easily query or [shut down](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster-nodes-shutdown.html) your cluster simply by making you visit a webpage.
 
 ### Notes
 
