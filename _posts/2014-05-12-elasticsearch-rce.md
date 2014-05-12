@@ -79,9 +79,15 @@ Disabling scripting will prevent code execution, but that still leaves us with t
 
 If an attacker can figure out the internal address of your production Elasticsearch instance, you're also open to leaking your production data. If your development machine is connected to a VPN which provides access to your Elasticsearch cluster, an attacker can easily query or [shut down](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster-nodes-shutdown.html) your cluster simply by making you visit a webpage.
 
+[Hackernews](https://news.ycombinator.com/item?id=7732540)
+
+[Reddit](http://www.reddit.com/r/netsec/comments/25cuun/insecure_default_in_elasticsearch_enables_remote/)
+
 ### Notes
 
 * I have reserved [CVE-2014-3120](http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=2014-3120) for this issue.
 * This exploit was tested against Elasticsearch version 1.1.1 on MacOSX installed through Homebrew. No configuration changes were made.
 * I notified Elasticsearch through their [security report instructions](http://www.elasticsearch.org/community/security/) on the 26th of April 2014. They replied they were aware of it, but didn't intend to do a security release and instead [disable](https://github.com/elasticsearch/elasticsearch/issues/5853) dynamic scripting by default in version 1.2.
 * This security issue has been indepently discovered and [blogged about](https://www.found.no/foundation/elasticsearch-security/#staying-safe-while-developing-with-elasticsearch) on December 9th 2013.
+
+*You should follow me on Twitter [here](https://twitter.com/bvdbijl)*

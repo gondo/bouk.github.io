@@ -1,3 +1,4 @@
 permalink: /blog/:title/
 domain: bouke.be
 highlighter: pygments
+markdown: kramdown
