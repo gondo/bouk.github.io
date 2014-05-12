@@ -84,4 +84,4 @@ If an attacker can figure out the internal address of your production Elasticsea
 * I have reserved [CVE-2014-3120](http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=2014-3120) for this issue.
 * This exploit was tested against Elasticsearch version 1.1.1 on MacOSX installed through Homebrew. No configuration changes were made.
 * I notified Elasticsearch through their [security report instructions](http://www.elasticsearch.org/community/security/) on the 26th of April 2014. They replied they were aware of it, but didn't intend to do a security release and instead [disable](https://github.com/elasticsearch/elasticsearch/issues/5853) dynamic scripting by default in version 1.2.
-* This exact exploit has been indepently discovered and [blogged about](https://www.found.no/foundation/elasticsearch-security/#staying-safe-while-developing-with-elasticsearch) on December 9th 2013.
+* This security issue has been indepently discovered and [blogged about](https://www.found.no/foundation/elasticsearch-security/#staying-safe-while-developing-with-elasticsearch) on December 9th 2013.
