@@ -69,7 +69,7 @@ Add the following line to your `elasticsearch.yml` to disable dynamic scripting 
 script.disable_dynamic: true
 {% endhighlight %}
 
-You should also make sure that your local Elasticsearch instance is only binding on `localhost`, as someone could exploit you over LAN if you don't. The Homebrew Elasticsearch formula does this automatically.
+You should also make sure that your local Elasticsearch instance is only binding on `localhost`, as someone could exploit you over LAN without making you visit a webpage if you don't. The Homebrew Elasticsearch formula does this automatically. This still means you're vulnerable to the CSRF exploit though!
 
 If you want to be as secure as possible, you should run Elasticsearch inside a virtual machine, to make sure it has no access to the hosting machine at all.
 
