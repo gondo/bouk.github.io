@@ -51,8 +51,9 @@ margin:0 auto;
 max-width:100%;
 display:block;
 }
-body > .container > .content > p {
+body > .container > .content p {
 padding:0 10px;
+line-height:30px;
 }
 a {
 color:#1B9BE0;
