@@ -77,7 +77,7 @@ We can then use it as follows:
 
 Because `go get` recursively fetches dependencies I can simply refer to another goneric template inside my template and achieve code reusability through generics!
 
-## Trying it out yourself
+## Giving it a Go
 
 Gonerics.io supports custom templates, to use them simply create a gist of your template (like the above [set template](https://gist.github.com/bouk/c66f38b49aafa2aa02ba) for example). You can then import it using a URL like the following (the gist ID is without your Github username):
 
