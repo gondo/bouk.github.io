@@ -4,20 +4,20 @@ title: Idiomatic Generics in Go
 
 ---
 
-Go has a fantastic standard library and powerful concurrency primitives, but the type system is notoriously lacking. One of the main features that is sorely missing is generics. In this post I'll compare different methods of implementing generics in Go, arriving at what I think is currently the best possible solution.
+Go has a fantastic standard library and powerful concurrency primitives, but the type system is notoriously lacking. One of the main features that is sorely missing is generics. In this post I'll compare different methods of implementing generics in Go, and show you what crazy hoops I jumped through to arrive at something that resembles generics in other languages.
 
 
 ## Copy and Paste
 
-A combination of interfaces and good ol' copy and paste is the way Go [currently implements sortable slices](http://golang.org/src/pkg/sort/sort.go?s=5371:5390#L223). This is not a sustainable way of coding of course, as you'll be duplicating lots of code with no way to modify all of it at once if you want to add features or fix bugs (of course Wikipedia has an [extensive article on the subject](https://en.wikipedia.org/wiki/Copy_and_paste_programming)). The names of your types will end up being `StringSet`, `IntSet`, `FloatSet` etc. Using generic functions like map or reduce is also a pain, as you'll end up with names like `StringToIntMap`. Copy and paste is clearly not a sustainable way of 'implementing' generics.
+A combination of interfaces and good ol' copy and paste is the way Go [currently implements sortable slices](http://golang.org/src/pkg/sort/sort.go?s=5371:5390#L223). This is of course a terrible, terrible idea. The names of your types will end up being `StringSet`, `IntSet`, and `FloatSet`. When you find a bug you'll be forced to go through all of the instances where you copied and pasted, fix it and hope you don't miss any. This is clearly not a sustainable way to 'implement' generics.
 
 ## Reflection
 
-A commonly suggested way to implement basic functions such as Map/Reduce/Filter is to use reflection, and you'll end up with something like this:
+A commonly suggested way to implement higher-order functions such as Map/Reduce/Filter is to use reflection, and you'll end up with something like this:
 
 <script src="https://gist.github.com/bouk/fbf273835d996c9f072e.js"></script>
 
-This will give you lots of flexibility, at the cost of static type checking. Losing static type checking will force you to do type checking at runtime, which means you'll lose lots of safety and performance, which means you're basically going back to Python style programming, which means you lose two of the most powerful features of Go.
+This will give you lots of flexibility, at the cost of static type checking. Losing static type checking will force you to do type checking at runtime, which has a big performance impact and you will lose many of the guarantees a type system gives you. The code is also way harder to understand because of the `interface{}` types everywhere.
 
 ## Templating
 
@@ -25,7 +25,7 @@ It would be ideal if we could just write Go like this:
 
 <script src="https://gist.github.com/bouk/c66f38b49aafa2aa02ba.js"></script>
 
-I've implemented a program that does exactly this, by parsing the file and inserting the correct types. For example:
+I've implemented a program that does exactly this. It parses the file, traverses the AST and replaces any reference to the type variable `T` with the passed type.
 
 <script src="https://gist.github.com/bouk/4682082a23df8305c73c.js"></script>
 
@@ -37,7 +37,7 @@ To fix this issue I've created a service called gonerics.io, which delivers easi
 
 <script src="https://gist.github.com/bouk/e5e8010f552717e1bcc9.js"></script>
 
-This will print `true false`, as you would expect. Converting this to a program that uses ints is as easy as changing the import.
+This will print `true false`, as you would expect. The code is also super readable, as you don't have to do any crazy casting or reflection. Converting this to a program that uses ints is as easy as changing the import, like follows:
 
 <script src="https://gist.github.com/bouk/b4e0ac1dc3bd39b2210d.js"></script>
 
@@ -79,18 +79,20 @@ Because `go get` recursively fetches dependencies I can simply refer to another 
 
 ## Trying it out yourself
 
-Gonerics.io supports custom templates, to use them simply create a gist of your template (like the above [set template](https://gist.github.com/bouk/c66f38b49aafa2aa02ba) for example). You can then import it using a URL like the following:
+Gonerics.io supports custom templates, to use them simply create a gist of your template (like the above [set template](https://gist.github.com/bouk/c66f38b49aafa2aa02ba) for example). You can then import it using a URL like the following (the gist ID is without your Github username):
 
 `gonerics.io/g/<gist id>/<type arguments seperated by _>.git`
 
 The package will then be available under the name of file minus ".go". Your gist should have only a single file, with the .go extension. There probably won't be any useful error message when you make a mistake because I haven't implemented any. The type arguments are accessible under T, U, V etc.
 
-## Are you kidding?
+## How does this work?!
 
-Yes. Kind of. I actually implemented the service and you can actually use it, but I do think it's a terrible idea. Go should have proper support for compile-time generics so these shenanigans aren't necessary. Please don't use gonerics.io in production, that would be a very bad idea. The (rough) code that powers gonerics.io can be found here: [github.com/bouk/gonerics](https://github.com/bouk/gonerics).
+Through the magic of CGI and bash scripting! In [my Nginx config](https://github.com/bouk/gonerics/blob/master/nginx-config) I use a [bash script](https://github.com/bouk/gonerics/blob/master/cgi.bash) as the CGI program to use. When git request the repository, this script will check if the specific combination of template and arguments has been served before. If it hasn't, it will first generate the correct file and check it into a new git repo. Finally, it'll call [git-http-backed](http://git-scm.com/docs/git-http-backend) which will actually serve the http request.
 
-## The future
+The rest of the (rough) code that powers gonerics.io can be found here: [github.com/bouk/gonerics](https://github.com/bouk/gonerics). Yes, I am aware of the bash vulnerability and my VPS is up-to-date, but still. Don't use gonerics.io for anything important. It's meant as a proof of concept.
 
-Rob Pike has recently suggested a new command for the `go` tool called `go generate` with the intention to also [support a simple form of templating](https://docs.google.com/document/d/1V03LUfjSADDooDMhe-_K59EgpTEm3V8uvQRuNMAEnjg/edit#heading=h.i81x19ol3oyz). Looking over the design document, I feel like it would not solve the generics problem at all and would only cause people to do C-style code generation using macros. Go would greatly benefit from a proper generics system, and I think it's way overdue.
+## The future of generics in Go
+
+Go should have proper support for generics so these shenanigans aren't necessary. Rob Pike has recently suggested a new command for the `go` tool called `go generate` with the intention to also [support a simple form of templating](https://docs.google.com/document/d/1V03LUfjSADDooDMhe-_K59EgpTEm3V8uvQRuNMAEnjg/edit#heading=h.i81x19ol3oyz). Looking over the design document, I feel like it would not solve the generics problem at all (although that isn't really what they set out to do). Go would greatly benefit from a proper generics system, and I think it's way overdue.
 
 I'd love to get feedback on this blogpost, feel free to [tweet at](https://twitter.com/BvdBijl) or [email me](mailto:boukevanderbijl@gmail.com).
