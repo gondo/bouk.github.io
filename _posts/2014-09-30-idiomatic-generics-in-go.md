@@ -87,9 +87,9 @@ The package will then be available under the name of file minus ".go". Your gist
 
 ## How does this work?!
 
-Through the magic of CGI and bash scripting! In [my Nginx config](https://github.com/bouk/gonerics/blob/master/nginx-config) I use a [bash script](https://github.com/bouk/gonerics/blob/master/cgi.bash) as the CGI program to use. When git request the repository, this script will check if the specific combination of template and arguments has been served before. If it hasn't, it will first generate the correct file and check it into a new git repo. Finally, it'll call [git-http-backed](http://git-scm.com/docs/git-http-backend) which will actually serve the http request.
+Through the magic of CGI and shell scripting! In [my Nginx config](https://github.com/bouk/gonerics/blob/master/nginx-config) I use a [shell script](https://github.com/bouk/gonerics/blob/master/cgi.sh) as the CGI program to use. When git request the repository, this script will check if the specific combination of template and arguments has been served before. If it hasn't, it will first generate the correct file and check it into a new git repo. Finally, it'll call [git-http-backed](http://git-scm.com/docs/git-http-backend) which will actually serve the http request.
 
-The rest of the (rough) code that powers gonerics.io can be found here: [github.com/bouk/gonerics](https://github.com/bouk/gonerics). Yes, I am aware of the bash vulnerability and my VPS is up-to-date, but still. Don't use gonerics.io for anything important. It's meant as a proof of concept.
+The rest of the (rough) code that powers gonerics.io can be found here: [github.com/bouk/gonerics](https://github.com/bouk/gonerics). Don't use gonerics.io for anything important please. It's meant as a proof of concept.
 
 ## The future of generics in Go
 
