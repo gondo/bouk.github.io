@@ -87,7 +87,7 @@ The package will then be available under the name of file minus ".go". Your gist
 
 ## Are you kidding?
 
-Yes. Kind of. I actually implemented the service and you can actually use it, but I do think it's a terrible idea. Go should have proper support for compile-time generics so these shenanigans aren't necessary. Please don't use gonerics.io in production, that would be a very bad idea.
+Yes. Kind of. I actually implemented the service and you can actually use it, but I do think it's a terrible idea. Go should have proper support for compile-time generics so these shenanigans aren't necessary. Please don't use gonerics.io in production, that would be a very bad idea. The (rough) code that powers gonerics.io can be found here: [github.com/bouk/gonerics](https://github.com/bouk/gonerics).
 
 ## The future
 
