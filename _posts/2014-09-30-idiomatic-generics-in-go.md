@@ -96,3 +96,5 @@ The rest of the (rough) code that powers gonerics.io can be found here: [github.
 Go should have proper support for generics so these shenanigans aren't necessary. Rob Pike has recently suggested a new command for the `go` tool called `go generate` with the intention to also [support a simple form of templating](https://docs.google.com/document/d/1V03LUfjSADDooDMhe-_K59EgpTEm3V8uvQRuNMAEnjg/edit#heading=h.i81x19ol3oyz). Looking over the design document, I feel like it would not solve the generics problem at all (although that isn't really what they set out to do). Go would greatly benefit from a proper generics system, and I think it's way overdue.
 
 I'd love to get feedback on this blogpost, feel free to [tweet at](https://twitter.com/BvdBijl) or [email me](mailto:boukevanderbijl@gmail.com).
+
+[Hacker News](https://news.ycombinator.com/item?id=8388282) [Reddit](http://bouk.co/blog/idiomatic-generics-in-go/)
