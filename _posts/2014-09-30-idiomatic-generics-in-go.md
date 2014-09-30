@@ -97,4 +97,4 @@ Go should have proper support for generics so these shenanigans aren't necessary
 
 I'd love to get feedback on this blogpost, feel free to [tweet at](https://twitter.com/BvdBijl) or [email me](mailto:boukevanderbijl@gmail.com).
 
-[Hacker News](https://news.ycombinator.com/item?id=8388282) [Reddit](http://bouk.co/blog/idiomatic-generics-in-go/)
+[HackerNews](https://news.ycombinator.com/item?id=8388282) [Reddit](http://www.reddit.com/r/golang/comments/2hw356/idiomatic_generics_in_go/)
