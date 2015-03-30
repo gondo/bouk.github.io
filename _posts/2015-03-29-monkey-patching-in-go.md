@@ -6,6 +6,8 @@ title: Monkey Patching in Go
 
 Many people think that monkey patching is something that is restricted to dynamic languages like Ruby and Python. That is not true however, as computers are just dumb machines and we can always make them do what we want! Let's look at how Go functions work and how we can modify them at runtime. This article will use a lot of Intel assembly syntax, so I'm assuming you can read it already or are using a [reference](https://software.intel.com/en-us/articles/introduction-to-x64-assembly) while reading.
 
+**If you're not interested in how it works and you just want to do monkey patching, then you can find the library [here](https://github.com/bouk/monkey).**
+
 <small>note: samples should be built with `go build -gcflags=-l` to disable inlining. For this article I assume your architecture is 64-bits and that you're using a unix-based operating system like Mac OSX or a Linux variant</small>
 
 Let's look at how the following code looks when disassembled:
