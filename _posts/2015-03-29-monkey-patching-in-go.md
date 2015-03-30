@@ -14,7 +14,7 @@ Let's look at what the following code produces when disassembled:
 
 <script src="https://gist.github.com/bouk/17262666fae75dd24a25.js"></script>
 
-When compiled and looked at through [Hopper](http://hopperapp.com/), the above code will produce this assembly:
+When compiled and looked at through [Hopper](http://hopperapp.com/), the above code will produce this assembly code:
 
 <img src="https://monosnap.com/image/9YuCc2avXnkWhkPQpyvv8blrhSeoDD.png" width="566" />
 
