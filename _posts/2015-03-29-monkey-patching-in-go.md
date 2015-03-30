@@ -91,3 +91,5 @@ I hope you got something useful out of this blogpost, I know I had fun making it
 Shoot me an [email](mailto:boukevanderbijl@gmail.com) or [tweet](https://twitter.com/BvdBijl) at me with any comments you have.
 
 [Hacker News](https://news.ycombinator.com/item?id=9290917)
+
+[Reddit](https://www.reddit.com/r/golang/comments/30try1/monkey_patching_in_go/)
