@@ -10,7 +10,7 @@ Many people think that monkey patching is something that is restricted to dynami
 
 <small>note: samples should be built with `go build -gcflags=-l` to disable inlining. For this article I assume your architecture is 64-bits and that you're using a unix-based operating system like Mac OSX or a Linux variant</small>
 
-Let's look at how the following code looks when disassembled:
+Let's look at what the following code produces when disassembled:
 
 <script src="https://gist.github.com/bouk/17262666fae75dd24a25.js"></script>
 
