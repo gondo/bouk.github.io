@@ -73,15 +73,12 @@ margin:5px 0;
 text-decoration:none;
 padding:3px 0;
 font-size:22px;
-width:640px;
 display:block;
-float:left;
 }
 .posts .date {
 text-align:right;
 color:#555;
 cursor:default;
-width:40px;
 display:block;
 float:left;
 margin-right:20px;
@@ -177,6 +174,9 @@ height: 0;
 }
 .clearfix {
 display: inline-block;
+}
+li.clearfix {
+display: block;
 }
 html[xmlns] .clearfix {
 display: block;
