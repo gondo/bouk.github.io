@@ -7,7 +7,6 @@ title: Bouke van der Bijl
 <ul class="posts">
     {% for post in site.posts %}
     <li class="clearfix">
-        <span class="date">{{ post.date | date: "%b<br>%Y"}}</span>
         <a href="{{ post.url }}">{{ post.title }}</a>
     </li>
     {% endfor %}
