@@ -45,6 +45,7 @@ width:100px;
 }
 body > .container > .content {
 padding-bottom:30px;
+overflow-x: scroll;
 }
 body > .container > .content img {
 margin:0 auto;
