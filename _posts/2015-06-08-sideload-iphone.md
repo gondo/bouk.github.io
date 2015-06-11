@@ -24,3 +24,7 @@ Apple just [released the Xcode 7 Beta](https://developer.apple.com/xcode/), and 
 **Q:** I'm getting this error message: ![](https://monosnap.com/image/uwcs6sKd6fWPWyK6GN4NH1fLaRWo7N.png)
 
 **A:** You will need to try a different Apple ID because of a [bug](https://twitter.com/kaptin/status/608727199965958144).
+
+**Q:** I'm getting and error containing `'GCControllerPlayerIndex' with an rvalue of type 'int'` while trying to compile GBA4iOS
+
+**A:** Change line 546 in `GBA4iOS/GBAEmulationViewController.mm` to `[controller setPlayerIndex:GCControllerPlayerIndex1];`
