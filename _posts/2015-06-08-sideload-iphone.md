@@ -14,3 +14,13 @@ Apple just [released the Xcode 7 Beta](https://developer.apple.com/xcode/), and 
 6. Click the play button in the top left. If there's no build errors the app should now launch on your phone!
 
 [Follow me on Twitter](https://twitter.com/BvdBijl)
+
+### FAQ
+
+**Q:** Will I need to install the iOS 9 beta/OSX El Capitan?
+
+**A:** Nope, this will work on any iOS/OSX version.
+
+**Q:** I'm getting this error message: ![](https://monosnap.com/image/uwcs6sKd6fWPWyK6GN4NH1fLaRWo7N.png)
+
+**A:** You will need to try a different Apple ID because of a [bug](https://twitter.com/kaptin/status/608727199965958144).
