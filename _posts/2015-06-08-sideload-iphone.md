@@ -19,7 +19,7 @@ Apple just [released the Xcode 7 Beta](https://developer.apple.com/xcode/), and 
 
 **Q:** Will I need to install the iOS 9 beta/OSX El Capitan?
 
-**A:** Nope, this will work on any iOS/OSX version.
+**A:** Nope, this will work on any iOS/OSX version as long as you have proper ios SDK. [How to install iOS 8.4 SDK on Xcode 7.](http://stackoverflow.com/questions/30736932/could-not-find-developer-disk-image-xcode-7-ios-8-4)
 
 **Q:** I'm getting this error message: ![](https://monosnap.com/image/uwcs6sKd6fWPWyK6GN4NH1fLaRWo7N.png)
 
